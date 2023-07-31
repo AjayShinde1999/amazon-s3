@@ -1,5 +1,6 @@
 package com.amazons3image.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class ImageController {
@@ -20,8 +22,10 @@ public class ImageController {
                                                    @RequestParam("file") MultipartFile multipart) {
         String fileName = multipart.getOriginalFilename();
 
-        System.out.println("Description: " + description);
-        System.out.println("filename: " + fileName);
+      //  System.out.println("Description: " + description);
+      //  System.out.println("filename: " + fileName);
+        log.info("Description : {}",description);
+        log.info("fileName : {}",fileName);
 
         String message = "";
 

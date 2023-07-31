@@ -10,10 +10,8 @@ import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
-import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 
 
 public class S3Util {
@@ -33,22 +31,23 @@ public class S3Util {
         client.putObject(request,
                 RequestBody.fromInputStream(inputStream, inputStream.available()));
 
-        S3Waiter waiter = client.waiter();
-        HeadObjectRequest waitRequest = HeadObjectRequest.builder()
-                .bucket(BUCKET)
-                .key(fileName)
-                .build();
 
-        WaiterResponse<HeadObjectResponse> waitResponse = waiter.waitUntilObjectExists(waitRequest);
-
-        waitResponse.matched().response().ifPresent(x -> {
-        });
+//        S3Waiter waiter = client.waiter();
+//        HeadObjectRequest waitRequest = HeadObjectRequest.builder()
+//                .bucket(BUCKET)
+//                .key(fileName)
+//                .build();
+//
+//        WaiterResponse<HeadObjectResponse> waitResponse = waiter.waitUntilObjectExists(waitRequest);
+//
+//        waitResponse.matched().response().ifPresent(x -> {
+//        });
     }
 
 
     public static InputStream downloadFile(String fileName) throws S3Exception, AwsServiceException, SdkClientException, IOException {
         S3Client client = S3Client.builder()
-                .region(software.amazon.awssdk.regions.Region.EU_NORTH_1) // Replace with the appropriate region for your S3 bucket
+                .region(software.amazon.awssdk.regions.Region.EU_NORTH_1)
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .build();
 
